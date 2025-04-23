@@ -41,7 +41,6 @@ try:
     # Create slicers for each column
     grade_filter = st.sidebar.multiselect("Select Grade", options=df["Grade"].unique(), default=df["Grade"].unique())
     designation_filter = st.sidebar.multiselect("Select Designation", options=df["Designation"].unique(), default=df["Designation"].unique())
-    gender_filter = st.sidebar.multiselect("Select Gender", options=df["Gender"].unique(), default=df["Gender"].unique())
     estate_filter = st.sidebar.multiselect("Select Estate (Cluster)", options=df["Estate (Cluster)"].unique(), default=df["Estate (Cluster)"].unique())
     buclassification_filter = st.sidebar.multiselect("Select BUClassification", options=df["BUClassification"].unique(), default=df["BUClassification"].unique())
     vertical_filter = st.sidebar.multiselect("Select Vertical", options=df["Vertical"].unique(), default=df["Vertical"].unique())
