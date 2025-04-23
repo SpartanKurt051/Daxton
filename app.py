@@ -29,20 +29,32 @@ try:
     columns = [desc[0] for desc in cursor.description]  # Get column names
     df = pd.DataFrame(data, columns=columns)
 
-    # Display the DataFrame in Streamlit
-    st.dataframe(df)
+    # Replace NULL values with "Unknown"
+    df.fillna("Unknown", inplace=True)
 
-    # Create slicers in the sidebar for the 7 parameters (excluding Gender)
+    # Sidebar Slicers
     st.sidebar.header("Filters")
-    grade_slicer = st.sidebar.multiselect("Grade", options=df["Grade"].unique())
-    designation_slicer = st.sidebar.multiselect("Designation", options=df["Designation"].unique())
-    estate_slicer = st.sidebar.multiselect("Estate", options=df["Estate"].unique())
-    buclassification_slicer = st.sidebar.multiselect("BUClassification", options=df["BUClassification"].unique())
-    vertical_slicer = st.sidebar.multiselect("Vertical", options=df["Vertical"].unique())
-    location_slicer = st.sidebar.multiselect("Location", options=df["Location"].unique())
-    employee_group_slicer = st.sidebar.multiselect("Employee Group", options=df["EmployeeGroup"].unique())
+    grade_slicer = st.sidebar.multiselect("Grade", options=df["Grade"].unique(), default=df["Grade"].unique())
+    designation_slicer = st.sidebar.multiselect("Designation", options=df["Designation"].unique(), default=df["Designation"].unique())
+    estate_slicer = st.sidebar.multiselect("Estate", options=df["Estate"].unique(), default=df["Estate"].unique())
+    buclassification_slicer = st.sidebar.multiselect("BUClassification", options=df["BUClassification"].unique(), default=df["BUClassification"].unique())
+    vertical_slicer = st.sidebar.multiselect("Vertical", options=df["Vertical"].unique(), default=df["Vertical"].unique())
+    location_slicer = st.sidebar.multiselect("Location", options=df["Location"].unique(), default=df["Location"].unique())
+    employee_group_slicer = st.sidebar.multiselect("Employee Group", options=df["EmployeeGroup"].unique(), default=df["EmployeeGroup"].unique())
 
-    # Currently, slicers have no functionality applied to the DataFrame.
+    # Apply filters to the DataFrame
+    filtered_df = df[
+        (df["Grade"].isin(grade_slicer)) &
+        (df["Designation"].isin(designation_slicer)) &
+        (df["Estate"].isin(estate_slicer)) &
+        (df["BUClassification"].isin(buclassification_slicer)) &
+        (df["Vertical"].isin(vertical_slicer)) &
+        (df["Location"].isin(location_slicer)) &
+        (df["EmployeeGroup"].isin(employee_group_slicer))
+    ]
+
+    # Display the filtered DataFrame
+    st.dataframe(filtered_df)
 
     # Close the connection
     conn.close()
