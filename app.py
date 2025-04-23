@@ -32,26 +32,48 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Sidebar Slicers
+    # Sidebar Filters (Dropdowns with default "All" functionality)
     st.sidebar.header("Filters")
-    grade_slicer = st.sidebar.multiselect("Grade", options=df["Grade"].unique(), default=df["Grade"].unique())
-    designation_slicer = st.sidebar.multiselect("Designation", options=df["Designation"].unique(), default=df["Designation"].unique())
-    estate_slicer = st.sidebar.multiselect("Estate", options=df["Estate"].unique(), default=df["Estate"].unique())
-    buclassification_slicer = st.sidebar.multiselect("BUClassification", options=df["BUClassification"].unique(), default=df["BUClassification"].unique())
-    vertical_slicer = st.sidebar.multiselect("Vertical", options=df["Vertical"].unique(), default=df["Vertical"].unique())
-    location_slicer = st.sidebar.multiselect("Location", options=df["Location"].unique(), default=df["Location"].unique())
-    employee_group_slicer = st.sidebar.multiselect("Employee Group", options=df["EmployeeGroup"].unique(), default=df["EmployeeGroup"].unique())
+
+    grade_filter = st.sidebar.selectbox(
+        "Grade", options=["All"] + list(df["Grade"].unique()), index=0
+    )
+    designation_filter = st.sidebar.selectbox(
+        "Designation", options=["All"] + list(df["Designation"].unique()), index=0
+    )
+    estate_filter = st.sidebar.selectbox(
+        "Estate", options=["All"] + list(df["Estate"].unique()), index=0
+    )
+    buclassification_filter = st.sidebar.selectbox(
+        "BUClassification", options=["All"] + list(df["BUClassification"].unique()), index=0
+    )
+    vertical_filter = st.sidebar.selectbox(
+        "Vertical", options=["All"] + list(df["Vertical"].unique()), index=0
+    )
+    location_filter = st.sidebar.selectbox(
+        "Location", options=["All"] + list(df["Location"].unique()), index=0
+    )
+    employee_group_filter = st.sidebar.selectbox(
+        "Employee Group", options=["All"] + list(df["EmployeeGroup"].unique()), index=0
+    )
 
     # Apply filters to the DataFrame
-    filtered_df = df[
-        (df["Grade"].isin(grade_slicer)) &
-        (df["Designation"].isin(designation_slicer)) &
-        (df["Estate"].isin(estate_slicer)) &
-        (df["BUClassification"].isin(buclassification_slicer)) &
-        (df["Vertical"].isin(vertical_slicer)) &
-        (df["Location"].isin(location_slicer)) &
-        (df["EmployeeGroup"].isin(employee_group_slicer))
-    ]
+    filtered_df = df.copy()
+
+    if grade_filter != "All":
+        filtered_df = filtered_df[filtered_df["Grade"] == grade_filter]
+    if designation_filter != "All":
+        filtered_df = filtered_df[filtered_df["Designation"] == designation_filter]
+    if estate_filter != "All":
+        filtered_df = filtered_df[filtered_df["Estate"] == estate_filter]
+    if buclassification_filter != "All":
+        filtered_df = filtered_df[filtered_df["BUClassification"] == buclassification_filter]
+    if vertical_filter != "All":
+        filtered_df = filtered_df[filtered_df["Vertical"] == vertical_filter]
+    if location_filter != "All":
+        filtered_df = filtered_df[filtered_df["Location"] == location_filter]
+    if employee_group_filter != "All":
+        filtered_df = filtered_df[filtered_df["EmployeeGroup"] == employee_group_filter]
 
     # Display the filtered DataFrame
     st.dataframe(filtered_df)
