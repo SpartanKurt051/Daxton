@@ -32,8 +32,11 @@ try:
     # Close the database connection
     conn.close()
 
-    # Slicers
-    st.sidebar.header("Filters")  # Add a header for the slicers in the sidebar
+    # Replace NULL values with a placeholder (e.g., "Unknown")
+    df.fillna("Unknown", inplace=True)
+
+    # Sidebar Slicers
+    st.sidebar.header("Filters")
 
     # Create slicers for each column
     grade_filter = st.sidebar.multiselect("Select Grade", options=df["Grade"].unique(), default=df["Grade"].unique())
