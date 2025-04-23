@@ -33,36 +33,68 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Function to preprocess and map locations
-    def preprocess_locations(location_data):
-        # Print unique locations for debugging
-        st.write("Unique Locations Before Mapping:", location_data['Location'].unique())
+    # Function to generate and display pie charts with percentages inside
+    def generate_side_by_side_pie_charts(column_names):
+        col1, col2 = st.columns(2)  # Divide the page into two columns
 
-        # Mapping custom or invalid location names to valid geographic names
-        location_mapping = {
-            "MX": "Mexico",
-            "US": "United States",
-            "NY": "New York",
-            # Add more mappings here as needed
-        }
-        location_data['Location'] = location_data['Location'].replace(location_mapping)
+        # Iterate through the columns and generate graphs
+        for i, column_name in enumerate(column_names):
+            grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
+            grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
+            fig = px.pie(grouped_data, names=column_name, values='Count', title=f"{column_name} Distribution")
 
-        # Print unique locations after mapping
-        st.write("Unique Locations After Mapping:", location_data['Location'].unique())
+            # Display percentages and labels inside the pie chart
+            fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
 
-        return location_data
+            # Alternate between columns
+            if i % 2 == 0:  # If index is even, use col1
+                with col1:
+                    st.plotly_chart(fig)
+            else:  # If index is odd, use col2
+                with col2:
+                    st.plotly_chart(fig)
 
     # Geospatial graph for Location
     def generate_geospatial_location_map():
-        # Preprocess the Location column to ensure valid geographic names
-        location_data = df['Location'].value_counts().reset_index()
-        location_data.columns = ['Location', 'Count']
-        location_data = preprocess_locations(location_data)
+        # Data provided by user
+        location_data = pd.DataFrame({
+            "Location": [
+                "Trichy", "Miami", "Mumbai", "Ohio", "Kingston", "Chennai", "Vijayawada", "Liverpool",
+                "Atlanta", "Laporte", "Pontypridd", "Palm Bay", "Hyderabad", "Thousand Oaks",
+                "Southampton", "Taguig", "Colorado Springs", "Banbury", "Middlesbrough",
+                "Derby", "Dallas", "Birmingham", "Louisville", "Derry", "Bangalore",
+                "Chico", "Fort Worth", "Belfast", "Amherst", "Cebu", "Gurugram",
+                "Salt Lake City", "Edinburgh", "Manchester", "Chattanooga", "Tampa", "Rockford",
+                "Mexico City", "Puducherry", "Fortscott", "Columbus", "Belleville", "Melbourne"
+            ],
+            "Count": [
+                447, 5, 6489, 69, 77, 2834, 167, 33,
+                19, 41, 581, 233, 2366, 115,
+                2, 1147, 421, 33, 399,
+                477, 540, 154, 832, 255, 3625,
+                2, 1, 232, 305, 417, 92,
+                95, 2, 64, 98, 6, 195,
+                499, 48, 143, 16, 11, 111
+            ]
+        })
 
         # Create the geospatial map
-        fig = px.scatter_geo(location_data, locations="Location", locationmode="country names",
-                             size="Count", title="Geospatial Distribution of Employees")
+        fig = px.scatter_geo(
+            location_data,
+            locations="Location",
+            locationmode="city names",  # Use city names for mapping
+            size="Count",
+            title="Geospatial Distribution of Employees",
+            projection="natural earth"
+        )
+
+        # Display the map
         st.plotly_chart(fig)
+
+    # Generate and display pie charts for each parameter except Location
+    st.header("Pie Charts for Each Parameter")
+    columns_to_plot = ["Grade", "Designation", "Estate", "BUClassification", "Vertical", "EmployeeGroup"]
+    generate_side_by_side_pie_charts(columns_to_plot)
 
     # Generate and display geospatial graph for Location
     st.header("Geospatial Graph for Location")
