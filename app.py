@@ -33,7 +33,7 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Function to generate and display pie charts without probes
+    # Function to generate and display pie charts with percentages inside
     def generate_side_by_side_pie_charts(column_names):
         col1, col2 = st.columns(2)  # Divide the page into two columns
 
@@ -43,8 +43,8 @@ try:
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
             fig = px.pie(grouped_data, names=column_name, values='Count', title=f"{column_name} Distribution")
 
-            # Remove line probes (hoverinfo)
-            fig.update_traces(textinfo='none')  # Disable text info on the chart (like percentages)
+            # Display percentages and labels inside the pie chart
+            fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
 
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
