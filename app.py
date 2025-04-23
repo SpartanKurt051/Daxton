@@ -33,15 +33,15 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Function to generate and display bar charts side by side
-    def generate_side_by_side_bar_charts(column_names):
+    # Function to generate and display pie charts side by side
+    def generate_side_by_side_pie_charts(column_names):
         col1, col2 = st.columns(2)  # Divide the page into two columns
 
         # Iterate through the columns and generate graphs
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.bar(grouped_data, x=column_name, y='Count', title=f"{column_name}  Count")
+            fig = px.pie(grouped_data, names=column_name, values='Count', title=f"{column_name} Distribution")
 
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
@@ -51,10 +51,23 @@ try:
                 with col2:
                     st.plotly_chart(fig)
 
-    # Generate and display graphs for each parameter (excluding Gender)
-    st.header("Graphs for Each Parameter vs Count")
-    columns_to_plot = ["Grade", "Designation", "Estate", "BUClassification", "Vertical", "Location", "EmployeeGroup"]
-    generate_side_by_side_bar_charts(columns_to_plot)
+    # Geospatial graph for Location
+    def generate_geospatial_location_map():
+        # Assuming `Location` contains city or country names
+        location_data = df['Location'].value_counts().reset_index()
+        location_data.columns = ['Location', 'Count']
+        fig = px.scatter_geo(location_data, locations="Location", locationmode="country names",
+                             size="Count", title="Geospatial Distribution of Employees")
+        st.plotly_chart(fig)
+
+    # Generate and display pie charts for each parameter except Location
+    st.header("Pie Charts for Each Parameter")
+    columns_to_plot = ["Grade", "Designation", "Estate", "BUClassification", "Vertical", "EmployeeGroup"]
+    generate_side_by_side_pie_charts(columns_to_plot)
+
+    # Generate and display geospatial graph for Location
+    st.header("Geospatial Graph for Location")
+    generate_geospatial_location_map()
 
     # Close the connection
     conn.close()
