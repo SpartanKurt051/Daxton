@@ -18,7 +18,7 @@ try:
 
     # Query to fetch data from Employees table
     query = """
-    SELECT Grade, Designation, Gender, [Estate (Cluster)], BUClassification, Vertical, Location, EmployeeGroup
+    SELECT Grade, Designation, Gender, BUClassification, Vertical, Location, EmployeeGroup
     FROM Employees
     """
 
