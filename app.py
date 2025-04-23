@@ -41,7 +41,7 @@ try:
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.bar(grouped_data, x=column_name, y='Count', title=f"{column_name}  Count")
+            fig = px.pie(grouped_data, x=column_name, y='Count', title=f"{column_name}  Count")
 
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
