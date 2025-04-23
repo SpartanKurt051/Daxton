@@ -1,3 +1,4 @@
+
 import pymssql
 import pandas as pd
 import streamlit as st
@@ -37,27 +38,22 @@ try:
     #st.dataframe(df)
 
     # Function to generate and display a bar chart for a given column
-    def generate_side_by_side_bar_charts(column_names):
-    col1, col2 = st.columns(2)  # Divide the page into two columns
-
-    # Iterate through the columns and generate graphs
-    for i, column_name in enumerate(column_names):
+    def generate_bar_chart(column_name):
         grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
         grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
         fig = px.bar(grouped_data, x=column_name, y='Count', title=f"{column_name} vs Count")
+        st.plotly_chart(fig)
 
-        # Alternate between columns
-        if i % 2 == 0:  # If index is even, use col1
-            with col1:
-                st.plotly_chart(fig)
-        else:  # If index is odd, use col2
-            with col2:
-                st.plotly_chart(fig)
+    # Generate and display graphs for each parameter (excluding Gender)
+    st.header("Graphs for Each Parameter vs Count")
+    generate_bar_chart("Grade")
+    generate_bar_chart("Designation")
+    generate_bar_chart("Estate")
+    generate_bar_chart("BUClassification")
+    generate_bar_chart("Vertical")
+    generate_bar_chart("Location")
+    generate_bar_chart("EmployeeGroup")
 
-# Generate and display graphs for each parameter (excluding Gender)
-st.header("Graphs for Each Parameter vs Count")
-columns_to_plot = ["Grade", "Designation", "Estate", "BUClassification", "Vertical", "Location", "EmployeeGroup"]
-generate_side_by_side_bar_charts(columns_to_plot)
     # Close the connection
     conn.close()
 
