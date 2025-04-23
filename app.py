@@ -54,11 +54,22 @@ try:
                 with col2:
                     st.plotly_chart(fig)
 
-    # Geospatial graph for Location
+    # Geospatial graph for Location with preprocessing
     def generate_geospatial_location_map():
-        # Assuming `Location` contains city or country names
+        # Preprocess the Location column to ensure valid geographic names
         location_data = df['Location'].value_counts().reset_index()
         location_data.columns = ['Location', 'Count']
+
+        # Check for invalid or unrecognized locations and map them to valid names if needed
+        # Example: Custom mapping for specific abbreviations or invalid entries
+        location_mapping = {
+            "MX": "Mexico",
+            "US": "United States",
+            # Add more mappings here if necessary
+        }
+        location_data['Location'] = location_data['Location'].replace(location_mapping)
+
+        # Create the geospatial map
         fig = px.scatter_geo(location_data, locations="Location", locationmode="country names",
                              size="Count", title="Geospatial Distribution of Employees")
         st.plotly_chart(fig)
