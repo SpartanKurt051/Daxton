@@ -4,6 +4,7 @@ scikit-learn
 yfinance
 plotly
 numpy
+pmssql
 seaborn
 matplotlib
 tensorflow
