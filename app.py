@@ -34,7 +34,7 @@ try:
     df.fillna("Unknown", inplace=True)
 
     # Display the DataFrame
-    st.dataframe(df)
+    #st.dataframe(df)
 
     # Function to generate and display a bar chart for a given column
     def generate_bar_chart(column_name):
