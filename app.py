@@ -8,11 +8,11 @@ user = 'mpdx_user'
 password = '9xpeiFpg5M5vaf9#L'
 database = 'ManPlanDx'
 
-# Streamlit App Title
+# Streamlit App
 st.title("Employee Details from ManPlanDx Database")
 
+# Connect to the MSSQL Database
 try:
-    # Connect to the MSSQL Database
     conn = pymssql.connect(server, user, password, database)
     cursor = conn.cursor()
 
@@ -21,6 +21,7 @@ try:
     SELECT Grade, Designation, Gender, Estate, BUClassification, Vertical, Location, EmployeeGroup
     FROM Employees
     """
+
     # Execute the query
     cursor.execute(query)
 
@@ -29,38 +30,11 @@ try:
     columns = [desc[0] for desc in cursor.description]  # Get column names
     df = pd.DataFrame(data, columns=columns)
 
-    # Close the database connection
+    # Display the DataFrame in Streamlit
+    st.dataframe(df)
+
+    # Close the connection
     conn.close()
-
-    # Replace NULL values with a placeholder (e.g., "Unknown")
-    df.fillna("Unknown", inplace=True)
-
-    # Sidebar Slicers
-    st.sidebar.header("Filters")
-
-    # Create slicers for each column
-    grade_filter = st.sidebar.multiselect("Select Grade", options=df["Grade"].unique(), default=df["Grade"].unique())
-    designation_filter = st.sidebar.multiselect("Select Designation", options=df["Designation"].unique(), default=df["Designation"].unique())
-    estate_filter = st.sidebar.multiselect("Select Estate (Cluster)", options=df["Estate (Cluster)"].unique(), default=df["Estate (Cluster)"].unique())
-    buclassification_filter = st.sidebar.multiselect("Select BUClassification", options=df["BUClassification"].unique(), default=df["BUClassification"].unique())
-    vertical_filter = st.sidebar.multiselect("Select Vertical", options=df["Vertical"].unique(), default=df["Vertical"].unique())
-    location_filter = st.sidebar.multiselect("Select Location", options=df["Location"].unique(), default=df["Location"].unique())
-    employee_group_filter = st.sidebar.multiselect("Select Employee Group", options=df["EmployeeGroup"].unique(), default=df["EmployeeGroup"].unique())
-
-    # Apply filters to the DataFrame
-    filtered_df = df[
-        (df["Grade"].isin(grade_filter)) &
-        (df["Designation"].isin(designation_filter)) &
-        (df["Gender"].isin(gender_filter)) &
-        (df["Estate (Cluster)"].isin(estate_filter)) &
-        (df["BUClassification"].isin(buclassification_filter)) &
-        (df["Vertical"].isin(vertical_filter)) &
-        (df["Location"].isin(location_filter)) &
-        (df["EmployeeGroup"].isin(employee_group_filter))
-    ]
-
-    # Display the filtered DataFrame
-    st.dataframe(filtered_df)
 
 except pymssql.DatabaseError as e:
     st.error(f"Database connection failed: {e}")
