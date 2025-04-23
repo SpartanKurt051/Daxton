@@ -1,2 +1,3 @@
 import streamlit as st
-st "hello"
+st.write("hello")
+st.title("world")
