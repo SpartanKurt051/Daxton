@@ -78,17 +78,41 @@ try:
             ]
         })
 
+        # Debugging: Print unique locations
+        st.write("Unique Locations:", location_data["Location"].unique())
+
+        # Mapping unrecognized or ambiguous locations to valid geographic names
+        location_mapping = {
+            "Trichy": "India",
+            "Mumbai": "India",
+            "Chennai": "India",
+            "Bangalore": "India",
+            "Hyderabad": "India",
+            "Vijayawada": "India",
+            "Puducherry": "India",
+            "Taguig": "Philippines",
+            "Cebu": "Philippines",
+            "Gurugram": "India",
+            "Salt Lake City": "United States",
+            "Fortscott": "United States",
+            "Laporte": "United States",
+            "Palm Bay": "United States",
+            # Add more mappings if needed
+        }
+        location_data["MappedLocation"] = location_data["Location"].replace(location_mapping)
+
+        # Debugging: Print mapped locations
+        st.write("Mapped Locations:", location_data["MappedLocation"].unique())
+
         # Create the geospatial map
         fig = px.scatter_geo(
             location_data,
-            locations="Location",
-            locationmode="city names",  # Use city names for mapping
+            locations="MappedLocation",
+            locationmode="country names",  # Use country names for mapping
             size="Count",
             title="Geospatial Distribution of Employees",
             projection="natural earth"
         )
-
-        # Display the map
         st.plotly_chart(fig)
 
     # Generate and display pie charts for each parameter except Location
