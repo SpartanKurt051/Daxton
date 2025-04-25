@@ -129,8 +129,6 @@ try:
         # Create the geospatial map with a dark theme
         fig = px.scatter_geo(
             location_data,
-            lat="Latitude",
-            lon="Longitude",
             size="Count",
             hover_name="Location",
             title="Geospatial Distribution of Employees",
