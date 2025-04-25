@@ -6,24 +6,6 @@ import plotly.express as px
 # Set Streamlit page layout to wide
 st.set_page_config(layout="wide")
 
-# Add custom CSS to remove padding
-st.markdown(
-    """
-    <style>
-        .css-18e3th9 {
-            padding: 0rem; /* Remove padding for the main content */
-        }
-        .css-1d391kg {
-            padding: 0rem; /* Remove padding for the sidebar */
-        }
-        .css-1v3fvcr {
-            gap: 0rem; /* Remove space between components */
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # MSSQL Connection Details
 server = '103.171.180.23'
 user = 'mpdx_user'
@@ -54,7 +36,7 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Function to generate and display pie charts with percentages inside
+    # Function to generate and display pie charts with headings
     def generate_side_by_side_pie_charts(column_names):
         col1, col2 = st.columns(2)  # Divide the page into two columns
 
@@ -70,9 +52,11 @@ try:
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
+                    st.subheader(f"{column_name} Distribution")  # Add heading
                     st.plotly_chart(fig)
             else:  # If index is odd, use col2
                 with col2:
+                    st.subheader(f"{column_name} Distribution")  # Add heading
                     st.plotly_chart(fig)
 
     # Geospatial graph for Location
@@ -116,6 +100,9 @@ try:
                 -99.1332, 79.8083, -94.7050, -82.9988, -90.0473, 144.9631
             ]
         })
+
+        # Add heading for the geospatial map
+        st.subheader("Geospatial Distribution of Employees")
 
         # Create the geospatial map
         fig = px.scatter_geo(
