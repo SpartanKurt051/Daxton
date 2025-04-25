@@ -155,6 +155,8 @@ try:
             ),
             paper_bgcolor="black",
             plot_bgcolor="black",
+            width=1400,
+            height=700,
             font=dict(color="goldenrod")
         )
 
