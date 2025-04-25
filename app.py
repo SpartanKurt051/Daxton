@@ -153,7 +153,7 @@ try:
                 lonaxis=dict(gridcolor="goldenrod"),
                 lataxis=dict(gridcolor="goldenrod")
             ),
-            paper_bgcolor="charcoal",
+            paper_bgcolor="black",
             plot_bgcolor="black",
             width=2500,
             height=700,
