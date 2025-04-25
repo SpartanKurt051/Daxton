@@ -120,6 +120,28 @@ try:
 
         # Add heading for the geospatial map
         st.markdown("<h3 class='goldenrod-heading'>Geospatial Distribution of Employees</h3>", unsafe_allow_html=True)
+        fig.update_layout(
+        geo=dict(
+            bgcolor='black',
+            showcoastlines=True,
+            coastlinecolor="goldenrod",
+            showland=True,
+            landcolor="black",
+            showlakes=True,
+            lakecolor="black",
+            showocean=True,
+            oceancolor="black",
+            projection_type="natural earth",
+            lonaxis=dict(gridcolor="goldenrod"),
+            lataxis=dict(gridcolor="goldenrod")
+        ),
+        paper_bgcolor="black",
+        plot_bgcolor="black",
+        font=dict(color="goldenrod")
+    )
+
+    # Update the marker color to be golden
+    fig.update_traces(marker=dict(color="goldenrod"))
 
         # Create the geospatial map
         fig = px.scatter_geo(
