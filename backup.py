@@ -6,6 +6,23 @@ import plotly.express as px
 # Set Streamlit page layout to wide
 st.set_page_config(layout="wide")
 
+# Add custom CSS to style headings and column titles in goldenrod
+st.markdown(
+    """
+    <style>
+        .goldenrod-heading {
+            color: goldenrod;
+            font-weight: bold;
+        }
+        .goldenrod-column {
+            color: goldenrod;
+            font-weight: bold;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # MSSQL Connection Details
 server = '103.171.180.23'
 user = 'mpdx_user'
@@ -52,11 +69,11 @@ try:
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
-                    st.subheader(f"{column_name} Distribution")  # Add heading
+                    st.markdown(f"<h3 class='goldenrod-heading'>{column_name} Distribution</h3>", unsafe_allow_html=True)
                     st.plotly_chart(fig)
             else:  # If index is odd, use col2
                 with col2:
-                    st.subheader(f"{column_name} Distribution")  # Add heading
+                    st.markdown(f"<h3 class='goldenrod-heading'>{column_name} Distribution</h3>", unsafe_allow_html=True)
                     st.plotly_chart(fig)
 
     # Geospatial graph for Location
@@ -102,7 +119,7 @@ try:
         })
 
         # Add heading for the geospatial map
-        st.subheader("Geospatial Distribution of Employees")
+        st.markdown("<h3 class='goldenrod-heading'>Geospatial Distribution of Employees</h3>", unsafe_allow_html=True)
 
         # Create the geospatial map
         fig = px.scatter_geo(
@@ -111,7 +128,6 @@ try:
             lon="Longitude",
             size="Count",
             hover_name="Location",
-            #title="Geospatial Distribution of Employees",
             projection="natural earth"
         )
         st.plotly_chart(fig)
@@ -122,7 +138,6 @@ try:
     generate_side_by_side_pie_charts(columns_to_plot)
 
     # Generate and display geospatial graph for Location
-    #st.header("Geospatial Graph for Location")
     generate_geospatial_location_map()
 
     # Close the connection
