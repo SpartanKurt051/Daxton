@@ -118,18 +118,52 @@ try:
             ]
         })
 
+        # Validate that location_data is not empty
+        if location_data.empty:
+            st.error("Location data is empty. Unable to generate the geospatial map.")
+            return
+
         # Add heading for the geospatial map
         st.markdown("<h3 class='goldenrod-heading'>Geospatial Distribution of Employees</h3>", unsafe_allow_html=True)
 
-        # Create the geospatial map
+        # Create the geospatial map with a dark theme
         fig = px.scatter_geo(
             location_data,
             lat="Latitude",
             lon="Longitude",
             size="Count",
             hover_name="Location",
+            title="Geospatial Distribution of Employees",
             projection="natural earth"
         )
+
+        # Update the layout for a black background and golden gridlines
+        fig.update_layout(
+            geo=dict(
+                bgcolor='black',
+                showcoastlines=True,
+                coastlinecolor="goldenrod",
+                showland=True,
+                landcolor="black",
+                showlakes=True,
+                lakecolor="black",
+                showocean=True,
+                oceancolor="black",
+                projection_type="natural earth",
+                lonaxis=dict(gridcolor="goldenrod"),
+                lataxis=dict(gridcolor="goldenrod")
+            ),
+            paper_bgcolor="black",
+            plot_bgcolor="black",
+            width=1400,
+            height=700,
+            font=dict(color="goldenrod")
+        )
+
+        # Update the marker color to be golden
+        fig.update_traces(marker=dict(color="goldenrod"))
+
+        # Render the map
         st.plotly_chart(fig)
 
     # Generate and display pie charts for each parameter except Location
@@ -138,10 +172,13 @@ try:
     generate_side_by_side_pie_charts(columns_to_plot)
 
     # Generate and display geospatial graph for Location
+    st.header("Geospatial Graph for Location")
     generate_geospatial_location_map()
-
-    # Close the connection
-    conn.close()
 
 except pymssql.DatabaseError as e:
     st.error(f"Database connection failed: {e}")
+
+finally:
+    # Close the connection if it was opened
+    if 'conn' in locals() and conn:
+        conn.close()
