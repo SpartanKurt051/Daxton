@@ -153,9 +153,9 @@ try:
                 lonaxis=dict(gridcolor="goldenrod"),
                 lataxis=dict(gridcolor="goldenrod")
             ),
-            paper_bgcolor="gray",
+            paper_bgcolor="charcoal",
             plot_bgcolor="black",
-            width=1700,
+            width=2500,
             height=700,
             font=dict(color="goldenrod")
         )
