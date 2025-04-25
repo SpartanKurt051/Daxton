@@ -157,7 +157,8 @@ try:
             plot_bgcolor="black",
             width=1400,
             height=700,
-            font=dict(color="goldenrod")
+            font=dict(color="goldenrod"),
+            margin=dict(l=0, r=0, t=0, b=0)
         )
 
         # Update the marker color to be golden
