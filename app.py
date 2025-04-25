@@ -142,7 +142,7 @@ try:
             geo=dict(
                 bgcolor='black',
                 showcoastlines=True,
-                coastlinecolor="goldenrod",
+                coastlinecolor="green",
                 showland=True,
                 landcolor="black",
                 showlakes=True,
