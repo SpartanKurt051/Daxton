@@ -128,7 +128,6 @@ try:
             lon="Longitude",
             size="Count",
             hover_name="Location",
-            title="Geospatial Distribution of Employees",
             projection="natural earth"
         )
         st.plotly_chart(fig)
