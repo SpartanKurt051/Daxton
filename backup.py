@@ -122,7 +122,7 @@ try:
     generate_side_by_side_pie_charts(columns_to_plot)
 
     # Generate and display geospatial graph for Location
-    st.header("Geospatial Graph for Location")
+    #st.header("Geospatial Graph for Location")
     generate_geospatial_location_map()
 
     # Close the connection
