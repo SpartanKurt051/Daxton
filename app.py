@@ -6,11 +6,15 @@ import plotly.express as px
 # Set Streamlit page layout to wide
 st.set_page_config(layout="wide")
 
-# Add custom CSS to style headings in goldenrod
+# Add custom CSS to style headings and column titles in goldenrod
 st.markdown(
     """
     <style>
         .goldenrod-heading {
+            color: goldenrod;
+            font-weight: bold;
+        }
+        .goldenrod-column {
             color: goldenrod;
             font-weight: bold;
         }
@@ -57,7 +61,7 @@ try:
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.pie(grouped_data, names=column_name, values='Count')
+            fig = px.pie(grouped_data, names=column_name, values='Count', title=f"{column_name} Distribution")
 
             # Display percentages and labels inside the pie chart
             fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
@@ -124,6 +128,7 @@ try:
             lon="Longitude",
             size="Count",
             hover_name="Location",
+            title="Geospatial Distribution of Employees",
             projection="natural earth"
         )
         st.plotly_chart(fig)
@@ -134,6 +139,7 @@ try:
     generate_side_by_side_pie_charts(columns_to_plot)
 
     # Generate and display geospatial graph for Location
+    st.header("Geospatial Graph for Location")
     generate_geospatial_location_map()
 
     # Close the connection
