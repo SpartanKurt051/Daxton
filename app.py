@@ -44,7 +44,7 @@ try:
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.pie(grouped_data, names=column_name, values='Count', title=f"{column_name} Distribution")
+            fig = px.pie(grouped_data, names=column_name, values='Count')
 
             # Display percentages and labels inside the pie chart
             fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
