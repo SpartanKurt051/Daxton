@@ -1,7 +1,10 @@
+import streamlit as st
 import pymssql
 import pandas as pd
-import streamlit as st
 import plotly.express as px
+
+# Set Streamlit page layout to wide
+st.set_page_config(layout="wide")
 
 # MSSQL Connection Details
 server = '103.171.180.23'
