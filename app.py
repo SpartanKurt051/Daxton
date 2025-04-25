@@ -131,6 +131,7 @@ try:
             lon="Longitude",
             size="Count",
             hover_name="Location",
+            hover_data={"Location": True, "Count": True, "Latitude": False, "Longitude": False},
   
             projection="natural earth"
         )
