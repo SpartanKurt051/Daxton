@@ -142,7 +142,7 @@ try:
             geo=dict(
                 bgcolor='black',
                 showcoastlines=True,
-                coastlinecolor="goldenrod",
+                coastlinecolor="green",
                 showland=True,
                 landcolor="black",
                 showlakes=True,
@@ -153,9 +153,9 @@ try:
                 lonaxis=dict(gridcolor="goldenrod"),
                 lataxis=dict(gridcolor="goldenrod")
             ),
-            paper_bgcolor="black",
+            paper_bgcolor="gray",
             plot_bgcolor="black",
-            width=1400,
+            width=1700,
             height=700,
             font=dict(color="goldenrod")
         )
