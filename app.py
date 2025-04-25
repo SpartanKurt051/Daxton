@@ -11,7 +11,7 @@ st.markdown(
     """
     <style>
         .goldenrod-heading {
-            color: beige;
+            color: goldenrod;
             font-weight: bold;
         }
     </style>
