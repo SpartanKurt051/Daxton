@@ -140,8 +140,8 @@ try:
         font=dict(color="goldenrod")
     )
 
-    # Update the marker color to be golden
-    fig.update_traces(marker=dict(color="goldenrod"))
+        # Update the marker color to be golden
+        fig.update_traces(marker=dict(color="goldenrod"))
 
         # Create the geospatial map
         fig = px.scatter_geo(
