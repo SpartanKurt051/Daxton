@@ -1,7 +1,28 @@
+import streamlit as st
 import pymssql
 import pandas as pd
-import streamlit as st
 import plotly.express as px
+
+# Set Streamlit page layout to wide
+st.set_page_config(layout="wide")
+
+# Add custom CSS to remove padding
+st.markdown(
+    """
+    <style>
+        .css-18e3th9 {
+            padding: 0rem; /* Remove padding for the main content */
+        }
+        .css-1d391kg {
+            padding: 0rem; /* Remove padding for the sidebar */
+        }
+        .css-1v3fvcr {
+            gap: 0rem; /* Remove space between components */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # MSSQL Connection Details
 server = '103.171.180.23'
