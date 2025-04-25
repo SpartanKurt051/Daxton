@@ -129,8 +129,11 @@ try:
         # Create the geospatial map with a dark theme
         fig = px.scatter_geo(
             location_data,
+            lat="Latitude",
+            lon="Longitude",
             size="Count",
             hover_name="Location",
+            title="Geospatial Distribution of Employees",
             projection="natural earth"
         )
 
@@ -139,7 +142,7 @@ try:
             geo=dict(
                 bgcolor='black',
                 showcoastlines=True,
-                coastlinecolor="green",
+                coastlinecolor="goldenrod",
                 showland=True,
                 landcolor="black",
                 showlakes=True,
@@ -154,8 +157,7 @@ try:
             plot_bgcolor="black",
             width=1400,
             height=700,
-            font=dict(color="goldenrod"),
-            margin=dict(l=0, r=0, t=0, b=0)
+            font=dict(color="goldenrod")
         )
 
         # Update the marker color to be golden
