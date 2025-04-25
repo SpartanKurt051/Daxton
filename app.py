@@ -123,8 +123,6 @@ try:
             st.error("Location data is empty. Unable to generate the geospatial map.")
             return
 
-        # Add heading for the geospatial map
-        st.markdown("<h3 class='goldenrod-heading'>Geospatial Distribution of Employees</h3>", unsafe_allow_html=True)
 
         # Create the geospatial map with a dark theme
         fig = px.scatter_geo(
@@ -133,7 +131,7 @@ try:
             lon="Longitude",
             size="Count",
             hover_name="Location",
-            title="Geospatial Distribution of Employees",
+  
             projection="natural earth"
         )
 
