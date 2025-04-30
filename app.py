@@ -66,9 +66,6 @@ def generate_geospatial_location_map():
 params = st.experimental_get_query_params()  # Fetch query parameters
 graph = params.get('graph', [''])[0]  # Get the 'graph' parameter from the URL
 
-# Debug: Display the parsed graph parameter
-st.write("Graph Parameter:", graph)
-
 # Connect to the MSSQL Database
 try:
     conn = pymssql.connect(server, user, password, database)
