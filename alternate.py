@@ -141,7 +141,7 @@ try:
             geo=dict(
                 bgcolor='black',
                 showcoastlines=True,coastlinecolor="green",
-                showland=True,landcolor="#111111",
+                showland=True,landcolor="#1a1a2a",
                 showlakes=True,lakecolor="black",
                 showocean=True,oceancolor="black",
                 showframe=True, framecolor="#222222",
