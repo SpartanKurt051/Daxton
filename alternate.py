@@ -129,7 +129,6 @@ try:
             location_data,
             lat="Latitude",
             lon="Longitude",
-            size= 10,
             hover_name="Location",
             hover_data={"Count": True,"Latitude": False, "Longitude": False},
   
@@ -157,7 +156,7 @@ try:
         )
 
         # Update the marker color to be golden
-        fig.update_traces(marker=dict(color="goldenrod"))
+        fig.update_traces(marker=dict(size=5,color="goldenrod"))
 
         # Render the map
         st.plotly_chart(fig)
