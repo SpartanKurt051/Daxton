@@ -63,7 +63,7 @@ def generate_geospatial_location_map():
     return fig
 
 # Parse URL parameters
-params = st.query_params._get_query_params()  # Fetch query parameters
+params = st.experimental_get_query_params()  # Fetch query parameters
 graph = params.get('graph', [''])[0]  # Get the 'graph' parameter from the URL
 
 # Debug: Display the parsed graph parameter
