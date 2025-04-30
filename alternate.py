@@ -68,6 +68,8 @@ try:
             fig.update_layout(
             paper_bgcolor="black",
             plot_bgcolor="black",
+            itemclick="toggle",  # Enable toggling individual values
+            itemdoubleclick="toggleothers" 
             font=dict(color="goldenrod")  # Set font color for better visibility
                              )
             # Alternate between columns
