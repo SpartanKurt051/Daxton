@@ -60,6 +60,7 @@ params = st.query_params  # Updated from st.experimental_get_query_params
 graph = params.get('graph', [''])[0]  # Get 'graph' parameter from the URL
 
 try:
+    # Connect to the MSSQL database
     conn = pymssql.connect(server, user, password, database)
     cursor = conn.cursor()
 
@@ -74,7 +75,7 @@ try:
     df = pd.DataFrame(data, columns=columns)
     df.fillna("Unknown", inplace=True)
 
-    # Hardcoded location data for geospatial map
+    # Hardcoded location data for the geospatial map
     location_data = pd.DataFrame({
         "Location": ["Trichy", "Miami", "Mumbai", "Ohio", "Kingston", "Chennai", "Vijayawada", "Liverpool"],
         "Count": [447, 5, 6489, 69, 77, 2834, 167, 33],
@@ -118,5 +119,6 @@ except pymssql.Error as e:  # Updated exception handling
     st.error(f"Database connection failed: {e}")
 
 finally:
+    # Ensure database connection is closed
     if 'conn' in locals() and conn:
         conn.close()
