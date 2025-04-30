@@ -19,10 +19,17 @@ def generate_pie_chart(column_name, df):
     fig = px.pie(grouped_data, names=column_name, values='Count')
     fig.update_traces(textinfo='percent', textposition='inside') # Percentages inside the chart
     fig.update_layout(
+            clickmode="event+select",
             paper_bgcolor="black",
             plot_bgcolor="black",
-            font=dict(color="goldenrod")  # Set font color for better visibility
-                    )
+            font=dict(color="goldenrod"),  # Set font color for better visibility
+            legend=dict(
+                title=f"{column_name} Legend",  # Add a title to the legend
+                font=dict(color="goldenrod"),  # Set legend font color
+                itemclick="toggleothers",  # Enable toggling individual values
+                itemdoubleclick="toggle"  # Enable toggling all others
+                       )
+            )
     return fig
 
 # Geospatial graph for Location
