@@ -156,7 +156,7 @@ try:
         )
 
         # Update the marker color to be golden
-        fig.update_traces(marker=dict(size=5,color="goldenrod"))
+        fig.update_traces(marker=dict(size=10,color="navy"))
 
         # Render the map
         st.plotly_chart(fig)
