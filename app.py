@@ -73,14 +73,13 @@ def generate_geospatial_location_map():
     fig.update_layout(
         geo=dict(
             bgcolor='black',
-            showcoastlines=True,
-            coastlinecolor="green",
-            showland=True,
-            landcolor="black",
-            showlakes=True,
-            lakecolor="black",
-            showocean=True,
-            oceancolor="navy",
+            showcoastlines=True,coastlinecolor="green",
+            showland=True,landcolor="#111111",
+            showcountries=True, countrycolor="#003300",
+            showgrid=True, gridcolor="#004400",
+            showframe=True, framecolor="#222222",
+            showlakes=True,lakecolor="black",
+            showocean=True,oceancolor="#000000",
             projection_type="natural earth",
             lonaxis=dict(gridcolor="goldenrod"),
             lataxis=dict(gridcolor="goldenrod")
@@ -91,7 +90,7 @@ def generate_geospatial_location_map():
         height=700,
         font=dict(color="goldenrod")
     )
-    fig.update_traces(marker=dict(color="goldenrod"))
+    fig.update_traces(marker=dict(color="#00FF00"))
     return fig
 
 # Parse URL parameters
