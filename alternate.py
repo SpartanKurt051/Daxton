@@ -74,8 +74,8 @@ try:
             legend=dict(
                 title=f"{column_name} Legend",  # Add a title to the legend
                 font=dict(color="goldenrod"),  # Set legend font color
-                itemclick="toggle",  # Enable toggling individual values
-                itemdoubleclick="toggleothers"  # Enable toggling all others
+                itemclick="toggleothers",  # Enable toggling individual values
+                itemdoubleclick="toggle"  # Enable toggling all others
                        )
             )
             # Alternate between columns
