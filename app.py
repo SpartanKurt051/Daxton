@@ -14,13 +14,13 @@ database = 'ManPlanDx'
 
 # Function to generate pie charts
 def generate_pie_chart(column_name, df):
-    reset_button_clicked = st.button("All")
+    #reset_button_clicked = st.button("All")
     grouped_data = df[column_name].value_counts().reset_index()
     grouped_data.columns = [column_name, 'Count']
     fig = px.pie(grouped_data, names=column_name, values='Count')
     fig.update_traces(textinfo='percent', textposition='inside') # Percentages inside the chart
-    if reset_button_clicked:
-        fig.data = []  #
+    #if reset_button_clicked:
+        #fig.data = []  #
     fig.update_layout(
             clickmode="event+select",
             paper_bgcolor="black",
