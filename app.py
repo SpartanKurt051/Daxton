@@ -74,7 +74,7 @@ def generate_geospatial_location_map():
         geo=dict(
                 bgcolor='black',
                 showcoastlines=True,coastlinecolor="green",
-                showland=True,landcolor="#111111",
+                showland=True,landcolor="#111119",
                 showlakes=True,lakecolor="black",
                 showocean=True,oceancolor="black",
                 showframe=True, framecolor="#222222",
@@ -88,7 +88,7 @@ def generate_geospatial_location_map():
         height=700,
         font=dict(color="goldenrod")
     )
-    fig.update_traces(marker=dict(color="goldenrod"))
+    fig.update_traces(marker=dict(color="#B25500"))
     return fig
 
 # Parse URL parameters
