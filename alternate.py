@@ -64,18 +64,20 @@ try:
             fig = px.pie(grouped_data, names=column_name, values='Count')
 
             # Display percentages and labels inside the pie chart
-            fig.update_traces(textinfo='percent', textposition='inside')  # Percentages inside the chart
+            fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
+
+        # Set the background color and enable interactive legends
             fig.update_layout(
             paper_bgcolor="black",
             plot_bgcolor="black",
+            font=dict(color="goldenrod"),  # Set font color for better visibility
             legend=dict(
                 title=f"{column_name} Legend",  # Add a title to the legend
                 font=dict(color="goldenrod"),  # Set legend font color
                 itemclick="toggle",  # Enable toggling individual values
                 itemdoubleclick="toggleothers"  # Enable toggling all others
-                )
-            font=dict(color="goldenrod")  # Set font color for better visibility
-            )         
+            )
+        )
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
