@@ -73,10 +73,10 @@ def generate_geospatial_location_map():
     fig.update_layout(
         geo=dict(
             bgcolor='black',
-                showcoastlines=True,
+            showcoastlines=True,
                 coastlinecolor="green",
                 showland=True,
-                landcolor="black",
+                landcolor="#111111",
                 showlakes=True,
                 lakecolor="black",
                 showocean=True,
