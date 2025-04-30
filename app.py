@@ -85,10 +85,6 @@ try:
     df = pd.DataFrame(data, columns=columns)
     df.fillna("Unknown", inplace=True)
 
-    # Debug: Display the dataframe
-    st.write("Dataframe Preview:")
-    st.write(df.head())
-
     # Conditional rendering based on the 'graph' query parameter
     if graph == 'grade_distribution':
         st.title("Grade Distribution")
