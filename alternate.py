@@ -53,7 +53,7 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Function to generate and display pie charts with headings
+    # Function to generate and display 3D pie charts with headings
     def generate_side_by_side_pie_charts(column_names):
         col1, col2 = st.columns(2)  # Divide the page into two columns
 
@@ -61,10 +61,17 @@ try:
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.pie(grouped_data, names=column_name, values='Count')
+            fig = px.pie(grouped_data, names=column_name, values='Count', hole=0.3)  # Add hole for 3D effect
 
             # Display percentages and labels inside the pie chart
             fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
+
+            # Update layout for 3D appearance
+            fig.update_layout(
+                title=f"{column_name} Distribution",
+                annotations=[dict(text='3D Pie', x=0.5, y=0.5, font_size=20, showarrow=False)],
+                showlegend=True
+            )
 
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
@@ -123,16 +130,14 @@ try:
             st.error("Location data is empty. Unable to generate the geospatial map.")
             return
 
-
         # Create the geospatial map with a dark theme
         fig = px.scatter_geo(
             location_data,
             lat="Latitude",
             lon="Longitude",
-            size= "Count",
+            size="Count",
             hover_name="Location",
-            hover_data={"Count": True,"Latitude": False, "Longitude": False},
-  
+            hover_data={"Count": True, "Latitude": False, "Longitude": False},
             projection="natural earth"
         )
 
@@ -140,10 +145,10 @@ try:
         fig.update_layout(
             geo=dict(
                 bgcolor='black',
-                showcoastlines=True,coastlinecolor="green",
-                showland=True,landcolor="#111119",
-                showlakes=True,lakecolor="black",
-                showocean=True,oceancolor="black",
+                showcoastlines=True, coastlinecolor="green",
+                showland=True, landcolor="#111119",
+                showlakes=True, lakecolor="black",
+                showocean=True, oceancolor="black",
                 showframe=True, framecolor="#222222",
                 projection_type="natural earth",
                 lonaxis=dict(gridcolor="goldenrod"),
