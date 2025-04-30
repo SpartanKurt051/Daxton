@@ -129,7 +129,7 @@ try:
             location_data,
             lat="Latitude",
             lon="Longitude",
-            size="Count",
+            size= 10,
             hover_name="Location",
             hover_data={"Count": True,"Latitude": False, "Longitude": False},
   
