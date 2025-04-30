@@ -88,7 +88,7 @@ def generate_geospatial_location_map():
         height=700,
         font=dict(color="goldenrod")
     )
-    fig.update_traces(marker=dict(color="#00FF00"))
+    fig.update_traces(marker=dict(color="goldenrod"))
     return fig
 
 # Parse URL parameters
