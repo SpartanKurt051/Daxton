@@ -1,7 +1,7 @@
 import streamlit as st
 import pymssql
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objects as go
 
 # Set Streamlit page layout to wide
 st.set_page_config(layout="wide")
@@ -61,16 +61,24 @@ try:
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
             grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.pie(grouped_data, names=column_name, values='Count', hole=0.3)  # Add hole for 3D effect
 
-            # Display percentages and labels inside the pie chart
-            fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
+            # Create a true 3D pie chart using plotly.graph_objects
+            fig = go.Figure(data=[
+                go.Pie(
+                    labels=grouped_data[column_name],
+                    values=grouped_data['Count'],
+                    pull=[0.1] * len(grouped_data),  # Create a 3D "exploded" effect
+                    textinfo='percent+label',
+                    textposition='inside'
+                )
+            ])
 
-            # Update layout for 3D appearance
+            # Update layout for a 3D appearance
             fig.update_layout(
                 title=f"{column_name} Distribution",
-                annotations=[dict(text='3D Pie', x=0.5, y=0.5, font_size=20, showarrow=False)],
-                showlegend=True
+                margin=dict(t=50, b=50, l=50, r=50),
+                height=400,
+                width=500
             )
 
             # Alternate between columns
