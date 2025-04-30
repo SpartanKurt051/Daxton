@@ -65,7 +65,7 @@ def generate_geospatial_location_map():
         location_data,
         lat="Latitude",
         lon="Longitude",
-        size="Count",
+        size="1",
         hover_name="Location",
         hover_data={"Count": True, "Latitude": False, "Longitude": False},
         projection="natural earth"
