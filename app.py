@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import pymssql
 
 # Set Streamlit page layout to wide
 st.set_page_config(layout="wide")
@@ -16,7 +17,7 @@ def generate_pie_chart(column_name, df):
     grouped_data = df[column_name].value_counts().reset_index()
     grouped_data.columns = [column_name, 'Count']
     fig = px.pie(grouped_data, names=column_name, values='Count')
-    fig.update_traces(textinfo='percent+label', textposition='inside')  # Display percentages inside
+    fig.update_traces(textinfo='percent+label', textposition='inside')
     return fig
 
 # Function to create geospatial map
@@ -55,10 +56,9 @@ def generate_geospatial_location_map(location_data):
     return fig
 
 # Parse URL parameters
-params = st.query_params
+params = st.query_params  # Updated from st.experimental_get_query_params
 graph = params.get('graph', [''])[0]  # Get 'graph' parameter from the URL
 
-# Connect to the MSSQL Database
 try:
     conn = pymssql.connect(server, user, password, database)
     cursor = conn.cursor()
@@ -68,12 +68,11 @@ try:
     SELECT Grade, Designation, Gender, Estate, BUClassification, Vertical, Location, EmployeeGroup
     FROM Employees
     """
-    # Execute the query
     cursor.execute(query)
     data = cursor.fetchall()
-    columns = [desc[0] for desc in cursor.description]  # Get column names
+    columns = [desc[0] for desc in cursor.description]
     df = pd.DataFrame(data, columns=columns)
-    df.fillna("Unknown", inplace=True)  # Replace NULL values with "Unknown"
+    df.fillna("Unknown", inplace=True)
 
     # Hardcoded location data for geospatial map
     location_data = pd.DataFrame({
@@ -115,10 +114,9 @@ try:
     else:
         st.write("Please specify a valid graph using the 'graph' query parameter.")
 
-except pymssql.Error as e:
+except pymssql.Error as e:  # Updated exception handling
     st.error(f"Database connection failed: {e}")
 
 finally:
-    # Close the connection if it was opened
     if 'conn' in locals() and conn:
         conn.close()
