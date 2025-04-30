@@ -129,7 +129,7 @@ try:
             location_data,
             lat="Latitude",
             lon="Longitude",
-            size="Count",
+            size= "Count",
             hover_name="Location",
             hover_data={"Count": True,"Latitude": False, "Longitude": False},
   
@@ -139,9 +139,9 @@ try:
         # Update the layout for a black background and golden gridlines
         fig.update_layout(
             geo=dict(
-                 bgcolor='black',
+                bgcolor='black',
                 showcoastlines=True,coastlinecolor="green",
-                showland=True,landcolor="#111111",
+                showland=True,landcolor="#111119",
                 showlakes=True,lakecolor="black",
                 showocean=True,oceancolor="black",
                 showframe=True, framecolor="#222222",
@@ -157,7 +157,7 @@ try:
         )
 
         # Update the marker color to be golden
-        fig.update_traces(marker=dict(color="goldenrod"))
+        fig.update_traces(marker=dict(color="#B25500"))
 
         # Render the map
         st.plotly_chart(fig)
