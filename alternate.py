@@ -75,7 +75,7 @@ try:
                 itemdoubleclick="toggleothers"  # Enable toggling all others
                 )
             font=dict(color="goldenrod")  # Set font color for better visibility
-                             
+            )         
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
