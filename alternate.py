@@ -68,6 +68,7 @@ try:
 
         # Set the background color and enable interactive legends
             fig.update_layout(
+            clickmode="event+select",
             paper_bgcolor="black",
             plot_bgcolor="black",
             font=dict(color="goldenrod"),  # Set font color for better visibility
