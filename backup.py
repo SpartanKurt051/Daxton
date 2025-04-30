@@ -56,7 +56,7 @@ try:
     # Function to generate and display pie charts with headings
     def generate_side_by_side_pie_charts(column_names):
         col1, col2 = st.columns(2)  # Divide the page into two columns
-
+        reset_button_clicked = st.button("All")
         # Iterate through the columns and generate graphs
         for i, column_name in enumerate(column_names):
             grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
@@ -65,11 +65,22 @@ try:
 
             # Display percentages and labels inside the pie chart
             fig.update_traces(textinfo='percent', textposition='inside')  # Percentages inside the chart
+            
+            if reset_button_clicked:
+                fig.data = []  #
+        # Set the background color and enable interactive legends
             fig.update_layout(
+            clickmode="event+select",
             paper_bgcolor="black",
             plot_bgcolor="black",
-            font=dict(color="goldenrod")  # Set font color for better visibility
-                             )
+            font=dict(color="goldenrod"),  # Set font color for better visibility
+            legend=dict(
+                title=f"{column_name} Legend",  # Add a title to the legend
+                font=dict(color="goldenrod"),  # Set legend font color
+                itemclick="toggleothers",  # Enable toggling individual values
+                itemdoubleclick="toggle"  # Enable toggling all others
+                       )
+            )
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
