@@ -67,7 +67,7 @@ try:
             fig.update_traces(textinfo='percent', textposition='inside')  # Percentages inside the chart
             
             if reset_button_clicked:
-            fig.data = []  #
+                fig.data = []  #
         # Set the background color and enable interactive legends
             fig.update_layout(
             clickmode="event+select",
