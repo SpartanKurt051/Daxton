@@ -68,10 +68,14 @@ try:
             fig.update_layout(
             paper_bgcolor="black",
             plot_bgcolor="black",
-            itemclick="toggle",  # Enable toggling individual values
-            itemdoubleclick="toggleothers" 
+            legend=dict(
+                title=f"{column_name} Legend",  # Add a title to the legend
+                font=dict(color="goldenrod"),  # Set legend font color
+                itemclick="toggle",  # Enable toggling individual values
+                itemdoubleclick="toggleothers"  # Enable toggling all others
+                )
             font=dict(color="goldenrod")  # Set font color for better visibility
-                             )
+                             
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
