@@ -140,17 +140,14 @@ try:
         fig.update_layout(
             geo=dict(
                 bgcolor='black',
-                showcoastlines=True,
-                coastlinecolor="green",
-                showland=True,
-                landcolor="black",
-                showlakes=True,
-                lakecolor="black",
-                showocean=True,
-                oceancolor="black",
+                showcoastlines=True,coastlinecolor="green",
+                showland=True,landcolor="#111111",
+                showlakes=True,lakecolor="black",
+                showocean=True,oceancolor="black",
+                showframe=True, framecolor="#222222",
                 projection_type="natural earth",
                 lonaxis=dict(gridcolor="goldenrod"),
-                lataxis=dict(gridcolor="goldenrod")
+                lataxis=dict(gridcolor="goldenrod"),
             ),
             paper_bgcolor="black",
             plot_bgcolor="black",
