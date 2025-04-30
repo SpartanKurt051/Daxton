@@ -1,34 +1,3 @@
-import streamlit as st
-import pymssql
-import pandas as pd
-import plotly.express as px
-
-# Set Streamlit page layout to wide
-st.set_page_config(layout="wide")
-
-# Add custom CSS to style headings and column titles in goldenrod
-st.markdown(
-    """
-    <style>
-        .goldenrod-heading {
-            color: goldenrod;
-            font-weight: bold;
-        }
-        .goldenrod-column {
-            color: goldenrod;
-            font-weight: bold;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# MSSQL Connection Details
-server = '103.171.180.23'
-user = 'mpdx_user'
-password = '9xpeiFpg5M5vaf9#L'
-database = 'ManPlanDx'
-
 # Streamlit App
 st.title("Employee Details from ManPlanDx Database")
 
@@ -53,28 +22,15 @@ try:
     # Replace NULL values with "Unknown"
     df.fillna("Unknown", inplace=True)
 
-    # Function to generate and display pie charts with headings
-    def generate_side_by_side_pie_charts(column_names):
-        col1, col2 = st.columns(2)  # Divide the page into two columns
+    # Function to generate pie chart for a single column
+    def generate_pie_chart(column_name):
+        grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
+        grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
+        fig = px.pie(grouped_data, names=column_name, values='Count')
 
-        # Iterate through the columns and generate graphs
-        for i, column_name in enumerate(column_names):
-            grouped_data = df[column_name].value_counts().reset_index()  # Group by column and count
-            grouped_data.columns = [column_name, 'Count']  # Rename columns for clarity
-            fig = px.pie(grouped_data, names=column_name, values='Count')
-
-            # Display percentages and labels inside the pie chart
-            fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
-
-            # Alternate between columns
-            if i % 2 == 0:  # If index is even, use col1
-                with col1:
-                    st.markdown(f"<h3 class='goldenrod-heading'>{column_name} Distribution</h3>", unsafe_allow_html=True)
-                    st.plotly_chart(fig)
-            else:  # If index is odd, use col2
-                with col2:
-                    st.markdown(f"<h3 class='goldenrod-heading'>{column_name} Distribution</h3>", unsafe_allow_html=True)
-                    st.plotly_chart(fig)
+        # Display percentages and labels inside the pie chart
+        fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
+        return fig
 
     # Geospatial graph for Location
     def generate_geospatial_location_map():
@@ -123,7 +79,6 @@ try:
             st.error("Location data is empty. Unable to generate the geospatial map.")
             return
 
-
         # Create the geospatial map with a dark theme
         fig = px.scatter_geo(
             location_data,
@@ -131,8 +86,7 @@ try:
             lon="Longitude",
             size="Count",
             hover_name="Location",
-            hover_data={"Count": True,"Latitude": False, "Longitude": False},
-  
+            hover_data={"Count": True, "Latitude": False, "Longitude": False},
             projection="natural earth"
         )
 
@@ -162,17 +116,27 @@ try:
         # Update the marker color to be golden
         fig.update_traces(marker=dict(color="goldenrod"))
 
-        # Render the map
-        st.plotly_chart(fig)
+        return fig
+
+    # Create placeholders for each graph
+    placeholders = []
+    for _ in range(7):  # 6 pie charts + 1 geospatial map
+        placeholders.append(st.empty())
 
     # Generate and display pie charts for each parameter except Location
-    st.header("Pie Charts for Each Parameter")
+    st.header("Graphs")
     columns_to_plot = ["Grade", "Designation", "Estate", "BUClassification", "Vertical", "EmployeeGroup"]
-    generate_side_by_side_pie_charts(columns_to_plot)
+    for i, column in enumerate(columns_to_plot):
+        with placeholders[i]:
+            st.markdown(f"### {column} Distribution")
+            fig = generate_pie_chart(column)
+            st.plotly_chart(fig)
 
     # Generate and display geospatial graph for Location
-    st.header("Geospatial Graph for Location")
-    generate_geospatial_location_map()
+    with placeholders[6]:
+        st.markdown("### Geospatial Graph for Location")
+        fig = generate_geospatial_location_map()
+        st.plotly_chart(fig)
 
 except pymssql.DatabaseError as e:
     st.error(f"Database connection failed: {e}")
