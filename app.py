@@ -73,16 +73,17 @@ def generate_geospatial_location_map():
     fig.update_layout(
         geo=dict(
             bgcolor='black',
-            showcoastlines=True,coastlinecolor="green",
-            showland=True,landcolor="#111111",
-            showcountries=True, countrycolor="#003300",
-            showgrid=True, gridcolor="#004400",
-            showframe=True, framecolor="#222222",
-            showlakes=True,lakecolor="black",
-            showocean=True,oceancolor="#000000",
-            projection_type="natural earth",
-            lonaxis=dict(gridcolor="goldenrod"),
-            lataxis=dict(gridcolor="goldenrod")
+                showcoastlines=True,
+                coastlinecolor="green",
+                showland=True,
+                landcolor="black",
+                showlakes=True,
+                lakecolor="black",
+                showocean=True,
+                oceancolor="black",
+                projection_type="natural earth",
+                lonaxis=dict(gridcolor="goldenrod"),
+                lataxis=dict(gridcolor="goldenrod")
         ),
         paper_bgcolor="black",
         plot_bgcolor="black",
