@@ -67,8 +67,7 @@ try:
             fig.update_traces(textinfo='percent', textposition='inside')  # Percentages inside the chart
 
         # Set the background color and enable interactive legends
-            fig.update_layout
-            (
+            fig.update_layout(
             paper_bgcolor="black",
             plot_bgcolor="black",
             font=dict(color="goldenrod"),  # Set font color for better visibility
