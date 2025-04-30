@@ -78,7 +78,6 @@ def generate_geospatial_location_map():
                 showlakes=True,lakecolor="black",
                 showocean=True,oceancolor="black",
                 showframe=True, framecolor="#222222",
-                showlakes=True,lakecolor="black",
                 projection_type="natural earth",
                 lonaxis=dict(gridcolor="goldenrod"),
                 lataxis=dict(gridcolor="goldenrod")
