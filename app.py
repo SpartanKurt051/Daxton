@@ -81,10 +81,6 @@ def generate_geospatial_location_map():
                 projection_type="natural earth",
                 lonaxis=dict(gridcolor="goldenrod"),
                 lataxis=dict(gridcolor="goldenrod"),
-                marker = dict(
-                                size = 10,
-                                color = '#00FF00'  # Hacker green points
-                             )
         ),
         paper_bgcolor="black",
         plot_bgcolor="black",
@@ -92,7 +88,7 @@ def generate_geospatial_location_map():
         height=700,
         font=dict(color="goldenrod")
     )
-    #fig.update_traces(marker=dict(color="goldenrod"))
+    fig.update_traces(marker=dict(color="goldenrod"))
     return fig
 
 # Parse URL parameters
