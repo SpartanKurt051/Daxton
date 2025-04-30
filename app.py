@@ -1,4 +1,33 @@
-# Streamlit App
+import streamlit as st
+import pymssql
+import pandas as pd
+import plotly.express as px
+
+# Set Streamlit page layout to wide
+st.set_page_config(layout="wide")
+
+# Add custom CSS to style headings and column titles in goldenrod
+st.markdown(
+    """
+    <style>
+        .goldenrod-heading {
+            color: goldenrod;
+            font-weight: bold;
+        }
+        .goldenrod-column {
+            color: goldenrod;
+            font-weight: bold;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# MSSQL Connection Details
+server = '103.171.180.23'
+user = 'mpdx_user'
+password = '9xpeiFpg5M5vaf9#L'
+database = 'ManPlanDx'# Streamlit App
 st.title("Employee Details from ManPlanDx Database")
 
 # Connect to the MSSQL Database
