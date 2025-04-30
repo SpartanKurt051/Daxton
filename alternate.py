@@ -141,7 +141,7 @@ try:
             geo=dict(
                 bgcolor='black',
                 showcoastlines=True,coastlinecolor="green",
-                showland=True,landcolor="#1a1a2a",
+                showland=True,landcolor="#111119",
                 showlakes=True,lakecolor="black",
                 showocean=True,oceancolor="black",
                 showframe=True, framecolor="#222222",
@@ -157,7 +157,7 @@ try:
         )
 
         # Update the marker color to be golden
-        fig.update_traces(marker=dict(color="#704214"))
+        fig.update_traces(marker=dict(color="#B25500"))
 
         # Render the map
         st.plotly_chart(fig)
