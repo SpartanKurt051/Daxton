@@ -18,6 +18,8 @@ def generate_pie_chart(column_name, df):
     grouped_data.columns = [column_name, 'Count']
     fig = px.pie(grouped_data, names=column_name, values='Count')
     fig.update_traces(textinfo='percent', textposition='inside') # Percentages inside the chart
+    if reset_button_clicked:
+        fig.data = []  #
     fig.update_layout(
             clickmode="event+select",
             paper_bgcolor="black",
