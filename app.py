@@ -55,7 +55,7 @@ def generate_geospatial_location_map(location_data):
     return fig
 
 # Parse URL parameters
-params = st.experimental_get_query_params()
+params = st.query_params
 graph = params.get('graph', [''])[0]  # Get 'graph' parameter from the URL
 
 # Connect to the MSSQL Database
@@ -115,7 +115,7 @@ try:
     else:
         st.write("Please specify a valid graph using the 'graph' query parameter.")
 
-except pymssql.DatabaseError as e:
+except pymssql.Error as e:
     st.error(f"Database connection failed: {e}")
 
 finally:
