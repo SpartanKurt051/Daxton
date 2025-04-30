@@ -80,7 +80,7 @@ def generate_geospatial_location_map():
             showlakes=True,
             lakecolor="black",
             showocean=True,
-            oceancolor="black",
+            oceancolor="navy",
             projection_type="natural earth",
             lonaxis=dict(gridcolor="goldenrod"),
             lataxis=dict(gridcolor="goldenrod")
