@@ -64,7 +64,7 @@ try:
             fig = px.pie(grouped_data, names=column_name, values='Count')
 
             # Display percentages and labels inside the pie chart
-            fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
+            fig.update_traces(textinfo='percent', textposition='inside')  # Percentages inside the chart
             fig.update_layout(
             paper_bgcolor="black",
             plot_bgcolor="black",
