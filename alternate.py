@@ -65,7 +65,11 @@ try:
 
             # Display percentages and labels inside the pie chart
             fig.update_traces(textinfo='percent+label', textposition='inside')  # Percentages inside the chart
-
+            fig.update_layout(
+            paper_bgcolor="black",
+            plot_bgcolor="black",
+            font=dict(color="goldenrod")  # Set font color for better visibility
+                             )
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
