@@ -67,7 +67,8 @@ try:
             fig.update_traces(textinfo='percent', textposition='inside')  # Percentages inside the chart
 
         # Set the background color and enable interactive legends
-            fig.update_layout(
+            fig.update_layout
+            (
             paper_bgcolor="black",
             plot_bgcolor="black",
             font=dict(color="goldenrod"),  # Set font color for better visibility
@@ -76,8 +77,8 @@ try:
                 font=dict(color="goldenrod"),  # Set legend font color
                 itemclick="toggle",  # Enable toggling individual values
                 itemdoubleclick="toggleothers"  # Enable toggling all others
+                       )
             )
-        )
             # Alternate between columns
             if i % 2 == 0:  # If index is even, use col1
                 with col1:
